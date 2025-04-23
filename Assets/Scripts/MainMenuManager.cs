@@ -16,4 +16,11 @@ public class MainMenuManager : MonoBehaviour
         // 加载设置界面场景
         SceneManager.LoadScene("SettingsScene");
     }
+
+    public void OnQuitButtonClicked()
+    {
+        Application.Quit();
+
+        Debug.Log("退出游戏!");
+    }
 }
