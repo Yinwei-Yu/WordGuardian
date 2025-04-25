@@ -182,7 +182,7 @@ MonoBehaviour:
   m_text: "\u8FD9\u91CC\u662F\u89C1\u5230\u6821\u957F\u4E4B\u540E\u7684\u5BF9\u8BDD"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 856b12cd4cf90594b9d0226b41925355, type: 2}
-  m_sharedMaterial: {fileID: 1705774656229860929, guid: 856b12cd4cf90594b9d0226b41925355, type: 2}
+  m_sharedMaterial: {fileID: 3008292917373552433, guid: 856b12cd4cf90594b9d0226b41925355, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -484,8 +484,8 @@ Canvas:
   m_GameObject: {fileID: 1859876770}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 947359657}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
