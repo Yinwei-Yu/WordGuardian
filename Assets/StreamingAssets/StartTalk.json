@@ -1,0 +1,69 @@
+{
+  "dialogue": [
+    {
+      "name": "古兰",
+      "portrait": "Sprites/portraits/Goolen",
+      "sentence": "姬塔！你还好吗？刚才那股黑暗力量……它又出现了！"
+    },
+    {
+      "name": "姬塔",
+      "portrait": "Sprites/portraits/Gita",
+      "sentence": "校长，那些是什么？为什么它们会出现在这里？"
+    },
+    {
+      "name": "古兰",
+      "portrait": "Sprites/portraits/Goolen",
+      "sentence": "那是被扭曲的“语灵”。原本，它们是语言和文字的灵魂，承载着魔法学院所有的知识与能量。但自从黑暗势力入侵以来，许多语灵被污染或驱散，导致我们的学院逐渐崩塌。"
+    },
+    {
+      "name": "姬塔",
+      "portrait": "Sprites/portraits/Gita",
+      "sentence": "语灵？它们真的存在吗？我以前只听说过传说……"
+    },
+    {
+      "name": "古兰",
+      "portrait": "Sprites/portraits/Goolen",
+      "sentence": "没错，语灵确实存在。每当你拼写一个咒元时，其实就是在召唤它的力量。例如，“tree”可以生成屏障，“fire”可以释放火焰……这些咒元不仅是普通的字母组合，更是连接语灵的关键。"
+    },
+    {
+      "name": "姬塔",
+      "portrait": "Sprites/portraits/Gita",
+      "sentence": "所以，如果我能掌握更多咒元，就能重新唤醒那些失落的语灵？"
+    },
+    {
+      "name": "古兰",
+      "portrait": "Sprites/portraits/Goolen",
+      "sentence": "正是如此！作为新入学的魔法师学徒，你的任务就是通过学习和使用咒元，修复学院中被破坏的知识体系，并找回那些逃散的语灵。只有这样，我们才能彻底击退黑暗势力，恢复魔法学院的辉煌。"
+    },
+    {
+      "name": "姬塔",
+      "portrait": "Sprites/portraits/Gita",
+      "sentence": "我明白了！但是，要怎么做呢？"
+    },
+    {
+      "name": "古兰",
+      "portrait": "Sprites/portraits/Goolen",
+      "sentence": "这是学院最珍贵的资源之一——咒语书。书中记录了所有重要的咒元及其释义。你需要不断学习其中的内容，并在战斗或解谜中实践它们。每一次正确的拼写或判断，都会让语灵的力量更强大。"
+    },
+    {
+      "name": "姬塔",
+      "portrait": "Sprites/portraits/Gita",
+      "sentence": "这么多咒元……会不会太难了？"
+    },
+    {
+      "name": "古兰",
+      "portrait": "Sprites/portraits/Goolen",
+      "sentence": "别担心，你可以慢慢来。每个区域都有特定的主题，比如森林对应自然咒元，城堡对应历史咒元，实验室对应科技咒元。随着你逐步解锁这些区域，你会越来越熟悉它们的用法。"
+    },
+    {
+      "name": "姬塔",
+      "portrait": "Sprites/portraits/Gita",
+      "sentence": "明白了！我会努力学习，帮助学院恢复原状！"
+    },
+    {
+      "name": "古兰",
+      "portrait": "Sprites/portraits/Goolen",
+      "sentence": "很好，姬塔。记住，你的每一次进步，都可能改变整个魔法世界的命运。现在，让我们先从基础开始吧——去图书馆的第一层，选择一本书架，开始你的学习之旅！"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "characters": [
+    {
+      "name": "古兰",
+      "portrait": "../Sprites/portraits/Goolen.jpg",
+      "dialogue": [
+        "啊，对了……我听说有人搬到那座旧农场。",
+        "你有兴趣去看看吗？",
+        "那里有很多机会等着你！"
+      ]
+    },
+    {
+      "name": "姬塔",
+      "portrait": "../Sprites/portraits/Gita.jpg",
+      "dialogue": [
+        "谢谢你的建议，我会去看看的。",
+        "希望能在那找到新的开始。"
+      ]
+    }
+  ]
+}
