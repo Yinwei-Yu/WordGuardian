@@ -4,31 +4,31 @@ using TMPro;
 
 public class WordMatchingMonster : MonoBehaviour
 {
-    [Header("测试设置")]
-    public float detectionRadius = 3f; // 检测玩家的半径
+    [Header("Radius")]
+    public float detectionRadius = 3f;
 
-    [Header("UI引用")]
-    public GameObject testPanel; // 测试面板
-    public TextMeshProUGUI questionText; // 问题文本
-    public Button[] optionButtons; // 选项按钮
-    public TextMeshProUGUI feedbackText; // 提示信息文本（新增）
+    [Header("UI")]
+    public GameObject testPanel;
+    public TextMeshProUGUI questionText;
+    public Button[] optionButtons;
+    public TextMeshProUGUI feedbackText;
 
-    [Header("测试内容")]
-    public string question; // 问题文本
-    public string[] options; // 选项
-    public int correctOptionIndex; // 正确选项索引
+    [Header("question and options")]
+    public string question;
+    public string[] options;
+    public int correctOptionIndex;
 
-    private Transform player; // 玩家引用
-    private bool isTestActive = false; // 测试是否激活
-    private GameObject testBubble; // 头顶测试题气泡
-    private PlayerController playerController; // 玩家控制脚本引用
+    private Transform player;
+    private bool isTestActive = false;
+    private GameObject testBubble;
+    private PlayerController playerController;
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        playerController = player.GetComponent<PlayerController>(); // 获取玩家控制脚本
+        playerController = player.GetComponent<PlayerController>();
         testPanel.SetActive(false);
-        feedbackText.gameObject.SetActive(false); // 初始化时隐藏提示信息
+        feedbackText.gameObject.SetActive(false);
         CreateTestBubble();
         SetupOptions();
     }
@@ -61,7 +61,7 @@ public class WordMatchingMonster : MonoBehaviour
     {
         for (int i = 0; i < optionButtons.Length; i++)
         {
-            int index = i; // 闭包需要局部变量
+            int index = i;
             optionButtons[i].onClick.AddListener(() => OnOptionSelected(index));
             optionButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = options[i];
         }
@@ -81,11 +81,11 @@ public class WordMatchingMonster : MonoBehaviour
         testBubble.SetActive(false);
         testPanel.SetActive(true);
         questionText.text = question;
-        feedbackText.gameObject.SetActive(false); // 开始测试时隐藏提示信息
+        feedbackText.gameObject.SetActive(false);
 
         if (playerController != null)
         {
-            playerController.enabled = false; // 禁用玩家控制脚本
+            playerController.enabled = false;
         }
     }
 
@@ -93,28 +93,30 @@ public class WordMatchingMonster : MonoBehaviour
     {
         if (optionIndex == correctOptionIndex)
         {
-            feedbackText.text = "回答正确!";
-            feedbackText.color = Color.green; // 设置提示文字颜色为绿色
+            feedbackText.text = "Right!";
+            feedbackText.color = Color.green;
+            //鍒犻櫎鐗╀綋
+            gameObject.SetActive(false);
         }
         else
         {
-            feedbackText.text = "回答错误! 正确答案是: " + options[correctOptionIndex];
-            feedbackText.color = Color.red; // 设置提示文字颜色为红色
+            feedbackText.text = "False,right anser is: " + options[correctOptionIndex];
+            feedbackText.color = Color.red;
         }
-        feedbackText.gameObject.SetActive(true); // 显示提示信息
+        feedbackText.gameObject.SetActive(true);
 
-        Invoke("EndTest", 2f); // 延迟2秒后结束测试
+        Invoke("EndTest", 2f);
     }
 
     void EndTest()
     {
         isTestActive = false;
         testPanel.SetActive(false);
-        feedbackText.gameObject.SetActive(false); // 隐藏提示信息
+        feedbackText.gameObject.SetActive(false);
 
         if (playerController != null)
         {
-            playerController.enabled = true; // 重新启用玩家控制脚本
+            playerController.enabled = true;
         }
     }
 }

@@ -4,32 +4,32 @@ using TMPro;
 
 public class PictureToWordMonster : MonoBehaviour
 {
-    [Header("测试设置")]
+    [Header("Radius and fonts")]
     public float detectionRadius = 3f;
-    public TMP_FontAsset stkaitiFont; // 新增字体引用字段
+    public TMP_FontAsset stkaitiFont;
 
-    [Header("UI引用")]
+    [Header("UI")]
     public GameObject testPanel;
     public Image questionImage;
     public TMP_InputField answerInput;
     public Button submitButton;
-    public TextMeshProUGUI feedbackText; // 提示信息文本（新增）
+    public TextMeshProUGUI feedbackText;
 
-    [Header("测试内容")]
+    [Header("Image and answer")]
     public Sprite picture;
     public string answer;
 
     private Transform player;
     private bool isTestActive = false;
     private GameObject testBubble;
-    private PlayerController playerController; // 玩家控制脚本引用
+    private PlayerController playerController;
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        playerController = player.GetComponent<PlayerController>(); // 获取玩家控制脚本
+        playerController = player.GetComponent<PlayerController>();
         testPanel.SetActive(false);
-        feedbackText.gameObject.SetActive(false); // 初始化时隐藏提示信息
+        feedbackText.gameObject.SetActive(false);
         CreateTestBubble();
         submitButton.onClick.AddListener(SubmitAnswer);
     }
@@ -60,14 +60,14 @@ public class PictureToWordMonster : MonoBehaviour
         text.alignment = TextAlignmentOptions.Center;
         text.sortingOrder = 10;
 
-        // 设置STKAITI SDF字体
+
         if (stkaitiFont != null)
         {
             text.font = stkaitiFont;
         }
         else
         {
-            Debug.LogWarning("STKAITI SDF字体未分配，将使用默认字体");
+            Debug.LogWarning("STKAITI SDF Not Found!");
         }
 
         testBubble.SetActive(false);
@@ -88,11 +88,11 @@ public class PictureToWordMonster : MonoBehaviour
         testPanel.SetActive(true);
         questionImage.sprite = picture;
         answerInput.text = "";
-        feedbackText.gameObject.SetActive(false); // 开始测试时隐藏提示信息
+        feedbackText.gameObject.SetActive(false); //
 
         if (playerController != null)
         {
-            playerController.enabled = false; // 禁用玩家控制脚本
+            playerController.enabled = false; //
         }
     }
 
@@ -101,28 +101,29 @@ public class PictureToWordMonster : MonoBehaviour
         string userAnswer = answerInput.text.Trim().ToLower();
         if (userAnswer == answer.ToLower())
         {
-            feedbackText.text = "回答正确!";
-            feedbackText.color = Color.green; // 设置提示文字颜色为绿色
+            feedbackText.text = "Right!";
+            feedbackText.color = Color.green; // 
+            gameObject.SetActive(false); // Deactivate the monster after correct answer
         }
         else
         {
-            feedbackText.text = "回答错误! 正确答案是: " + answer;
-            feedbackText.color = Color.red; // 设置提示文字颜色为红色
+            feedbackText.text = "False,answer is:" + answer;
+            feedbackText.color = Color.red;
         }
-        feedbackText.gameObject.SetActive(true); // 显示提示信息
+        feedbackText.gameObject.SetActive(true);
 
-        Invoke("EndTest", 2f); // 延迟2秒后结束测试
+        Invoke("EndTest", 2f);
     }
 
     void EndTest()
     {
         isTestActive = false;
         testPanel.SetActive(false);
-        feedbackText.gameObject.SetActive(false); // 隐藏提示信息
+        feedbackText.gameObject.SetActive(false);
 
         if (playerController != null)
         {
-            playerController.enabled = true; // 重新启用玩家控制脚本
+            playerController.enabled = true;
         }
     }
 }

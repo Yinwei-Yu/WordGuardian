@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-    [SerializeField] private float chaseRange = 5f; // 检测范围
-    [SerializeField] private float moveSpeed = 3f; // 移动速度
+    [SerializeField] private float chaseRange = 5f; // 
+    [SerializeField] private float moveSpeed = 3f; // 
 
     private Transform player;
     private Rigidbody2D rb;
@@ -17,12 +17,12 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
-        // 计算与玩家的距离
-        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
+        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+        Debug.Log("Distance:" + distanceToPlayer);
         if (distanceToPlayer <= chaseRange)
         {
-            // 计算朝向玩家的方向
+            Debug.Log("Chase!");
             Vector2 direction = (player.position - transform.position).normalized;
             movement = direction;
         }
@@ -34,14 +34,14 @@ public class EnemyAI : MonoBehaviour
 
     void FixedUpdate()
     {
-        // 移动敌人
+
         if (movement != Vector2.zero)
         {
             rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
         }
     }
 
-    // 可视化检测范围（仅在编辑器可见）
+
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
