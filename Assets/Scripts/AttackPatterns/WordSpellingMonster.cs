@@ -13,6 +13,7 @@ public class WordSpellingMonster : MonoBehaviour
     public TMP_InputField answerInput;
     public Button submitButton;
     public TextMeshProUGUI feedbackText;
+    public TMP_FontAsset stkaitiFont;
 
     [Header("question and answer")]
     public string question;
@@ -59,14 +60,13 @@ public class WordSpellingMonster : MonoBehaviour
         text.alignment = TextAlignmentOptions.Center;
         text.sortingOrder = 10;
 
-        TMP_FontAsset stkaitiFont = Resources.Load<TMP_FontAsset>("Fonts & Materials/STKAITI SDF");
         if (stkaitiFont != null)
         {
             text.font = stkaitiFont;
         }
         else
         {
-            Debug.LogWarning("STKAITI SDF Not Found");
+            Debug.LogWarning("STKAITI SDF Not Found!");
         }
 
         testBubble.SetActive(false);

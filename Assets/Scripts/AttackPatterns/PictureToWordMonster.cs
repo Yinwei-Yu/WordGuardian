@@ -75,6 +75,7 @@ public class PictureToWordMonster : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("Trigger!");
         if (other.CompareTag("Player") && !isTestActive)
         {
             StartTest();

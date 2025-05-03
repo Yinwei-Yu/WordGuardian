@@ -13,7 +13,7 @@ public class WordMatchingMonster : MonoBehaviour
     public Button[] optionButtons;
     public TextMeshProUGUI feedbackText;
 
-    [Header("question and options")]
+    [Header("questions")]
     public string question;
     public string[] options;
     public int correctOptionIndex;
@@ -93,14 +93,13 @@ public class WordMatchingMonster : MonoBehaviour
     {
         if (optionIndex == correctOptionIndex)
         {
-            feedbackText.text = "Right!";
+            feedbackText.text = "Right1";
             feedbackText.color = Color.green;
-            //删除物体
             gameObject.SetActive(false);
         }
         else
         {
-            feedbackText.text = "False,right anser is: " + options[correctOptionIndex];
+            feedbackText.text = "False,right answer is: " + options[correctOptionIndex];
             feedbackText.color = Color.red;
         }
         feedbackText.gameObject.SetActive(true);
@@ -112,11 +111,11 @@ public class WordMatchingMonster : MonoBehaviour
     {
         isTestActive = false;
         testPanel.SetActive(false);
-        feedbackText.gameObject.SetActive(false);
+        feedbackText.gameObject.SetActive(false); // ������ʾ��Ϣ
 
         if (playerController != null)
         {
-            playerController.enabled = true;
+            playerController.enabled = true; // ����������ҿ��ƽű�
         }
     }
 }

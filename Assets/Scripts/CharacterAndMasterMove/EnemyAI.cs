@@ -19,10 +19,10 @@ public class EnemyAI : MonoBehaviour
     {
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-        Debug.Log("Distance:" + distanceToPlayer);
+        //Debug.Log("Distance:" + distanceToPlayer);
         if (distanceToPlayer <= chaseRange)
         {
-            Debug.Log("Chase!");
+            //Debug.Log("Chase!");
             Vector2 direction = (player.position - transform.position).normalized;
             movement = direction;
         }
