@@ -18,14 +18,14 @@ EditorBuildSettings:
     path: Assets/Scenes/Teaching/StartTalk.unity
     guid: 2866cf34f9104e24f99ae4784ebc5683
   - enabled: 1
-    path: Assets/Scenes/TeachingBook.unity
-    guid: 9b3ca176503c1e241833188e12b26813
-  - enabled: 1
     path: Assets/Scenes/CharacterAndMasterMove.unity
     guid: f8da71049dd329c4f9dd7cffc5922c70
   - enabled: 1
-    path: Assets/Scenes/SpellBook.unity
-    guid: 7b2a4fdf77fed284980f6eac9034ed5e
+    path: Assets/Scenes/Teaching/TeachBattle.unity
+    guid: a79a2d875f3c0c24f90e556288a69883
+  - enabled: 1
+    path: Assets/Scenes/Teaching/TeachingBook.unity
+    guid: f462684de0d6b154fbb22fd5dae865ca
   - enabled: 1
     path: Assets/Scenes/DetectionInterface.unity
     guid: d898dc0a8bee43546aa61bb058ac3186
