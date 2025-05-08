@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
@@ -95,10 +95,7 @@ public class SaveData
     // 添加其他需要保存的字段
 }
 
-// SettingsMenu.cs
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
+
 
 public class SettingsMenu : MonoBehaviour
 {

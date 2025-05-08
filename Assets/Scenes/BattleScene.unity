@@ -401,7 +401,7 @@ GameObject:
   - component: {fileID: 151600543}
   - component: {fileID: 151600544}
   m_Layer: 5
-  m_Name: WizardBlood
+  m_Name: playerHealthSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -492,7 +492,7 @@ GameObject:
   - component: {fileID: 164569825}
   - component: {fileID: 164569824}
   m_Layer: 5
-  m_Name: SubmitButton
+  m_Name: submitButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -892,6 +892,7 @@ GameObject:
   - component: {fileID: 652618372}
   - component: {fileID: 652618374}
   - component: {fileID: 652618373}
+  - component: {fileID: 652618375}
   m_Layer: 5
   m_Name: Enemy
   m_TagString: Untagged
@@ -958,6 +959,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 652618371}
   m_CullTransparentMesh: 1
+--- !u!114 &652618375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 652618371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8ff4b2ff21b5e74da1f4a8082639b83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  maxHealth: 100
+  attackPower: 10
+  OnHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &882979605
 GameObject:
   m_ObjectHideFlags: 0
@@ -1178,7 +1197,7 @@ GameObject:
   - component: {fileID: 1173385315}
   - component: {fileID: 1173385316}
   m_Layer: 5
-  m_Name: EnemyBlood
+  m_Name: enemyHealthSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1528,7 +1547,7 @@ GameObject:
   - component: {fileID: 1616735987}
   - component: {fileID: 1616735986}
   m_Layer: 5
-  m_Name: InputAnswer
+  m_Name: inputAnswer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1702,7 +1721,7 @@ GameObject:
   - component: {fileID: 1673312005}
   - component: {fileID: 1673312004}
   m_Layer: 5
-  m_Name: Questions
+  m_Name: questionsText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2002,6 +2021,7 @@ GameObject:
   - component: {fileID: 1731195662}
   - component: {fileID: 1731195664}
   - component: {fileID: 1731195663}
+  - component: {fileID: 1731195665}
   m_Layer: 5
   m_Name: Wizard
   m_TagString: Untagged
@@ -2068,6 +2088,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1731195661}
   m_CullTransparentMesh: 1
+--- !u!114 &1731195665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731195661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8ff4b2ff21b5e74da1f4a8082639b83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  maxHealth: 100
+  attackPower: 10
+  OnHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1755148139
 GameObject:
   m_ObjectHideFlags: 0
@@ -2146,6 +2184,58 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1755148139}
   m_CullTransparentMesh: 1
+--- !u!1 &1810245611
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1810245613}
+  - component: {fileID: 1810245612}
+  m_Layer: 0
+  m_Name: BattleSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1810245612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1810245611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82fc33a3479d3df4faec7af6dd8a0d8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 0
+  playerStats: {fileID: 1731195665}
+  enemyStats: {fileID: 652618375}
+  playerHealthSlider: {fileID: 151600544}
+  enemyHealthSlider: {fileID: 1173385316}
+  questionsText: {fileID: 1673312004}
+  submitButton: {fileID: 164569824}
+  inputAnswer: {fileID: 1616735986}
+--- !u!4 &1810245613
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1810245611}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 234.34525, y: 228.93518, z: -1.0515418}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1887488094
 GameObject:
   m_ObjectHideFlags: 0
@@ -2348,3 +2438,4 @@ SceneRoots:
   - {fileID: 1702739760}
   - {fileID: 1350381678}
   - {fileID: 1887488097}
+  - {fileID: 1810245613}
