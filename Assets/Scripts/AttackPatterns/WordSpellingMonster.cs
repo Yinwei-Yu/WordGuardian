@@ -1,7 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections.Generic;
 
+// WordSpellingMonster½Å±¾
 public class WordSpellingMonster : MonoBehaviour
 {
     [Header("Radius")]
@@ -15,14 +17,12 @@ public class WordSpellingMonster : MonoBehaviour
     public TextMeshProUGUI feedbackText;
     public TMP_FontAsset stkaitiFont;
 
-    [Header("question and answer")]
-    public string question;
-    public string answer;
-
     private Transform player;
     private bool isTestActive = false;
     private GameObject testBubble;
     private PlayerController playerController;
+    private List<TestWordData> currentTestWords;
+    private int currentWordIndex = 0;
 
     void Start()
     {
@@ -85,33 +85,61 @@ public class WordSpellingMonster : MonoBehaviour
         isTestActive = true;
         testBubble.SetActive(false);
         testPanel.SetActive(true);
-        questionText.text = question;
         answerInput.text = "";
         feedbackText.gameObject.SetActive(false);
+
+        currentTestWords = WordSpellingWordManager.Instance.GetRandomWords(WordSpellingWordManager.Instance.wordsToTestCount);
+        currentWordIndex = 0;
 
         if (playerController != null)
         {
             playerController.enabled = false;
         }
+
+        ShowNextWord();
+    }
+
+    void ShowNextWord()
+    {
+        if (currentWordIndex >= currentTestWords.Count)
+        {
+            EndTest();
+            return;
+        }
+
+        TestWordData currentWord = currentTestWords[currentWordIndex];
+        questionText.text = $"Spell the word that means: '{currentWord.chinese}'";
     }
 
     void SubmitAnswer()
     {
+        TestWordData currentWord = currentTestWords[currentWordIndex];
         string userAnswer = answerInput.text.Trim().ToLower();
-        if (userAnswer == answer.ToLower())
+
+        if (userAnswer == currentWord.word.ToLower())
         {
-            feedbackText.text = "Right!";
+            feedbackText.text = "Correct!";
             feedbackText.color = Color.green;
-            gameObject.SetActive(false);
+            feedbackText.gameObject.SetActive(true);
+            Invoke("HideFeedbackText", 3f);
         }
         else
         {
-            feedbackText.text = "False,right answer is: " + answer;
+            feedbackText.text = $"Wrong! The correct spelling is: {currentWord.word}";
             feedbackText.color = Color.red;
+            feedbackText.gameObject.SetActive(true);
+            Invoke("HideFeedbackText", 3f);
         }
-        feedbackText.gameObject.SetActive(true);
 
-        Invoke("EndTest", 2f);
+        feedbackText.gameObject.SetActive(true);
+        currentWordIndex++;
+        answerInput.text = "";
+        ShowNextWord();
+    }
+
+    void HideFeedbackText()
+    {
+        feedbackText.gameObject.SetActive(false);
     }
 
     void EndTest()
@@ -119,6 +147,7 @@ public class WordSpellingMonster : MonoBehaviour
         isTestActive = false;
         testPanel.SetActive(false);
         feedbackText.gameObject.SetActive(false);
+        gameObject.SetActive(false);
 
         if (playerController != null)
         {

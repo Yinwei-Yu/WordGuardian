@@ -1,7 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections.Generic;
 
+// WordMatchingMonster脚本
 public class WordMatchingMonster : MonoBehaviour
 {
     [Header("Radius")]
@@ -13,15 +15,16 @@ public class WordMatchingMonster : MonoBehaviour
     public Button[] optionButtons;
     public TextMeshProUGUI feedbackText;
 
-    [Header("questions")]
-    public string question;
-    public string[] options;
-    public int correctOptionIndex;
+    [Header("Settings")]
+    public int numberOfOptions = 4;
 
     private Transform player;
     private bool isTestActive = false;
     private GameObject testBubble;
     private PlayerController playerController;
+    private List<TestWordData> currentTestWords;
+    private int currentWordIndex = 0;
+    private int correctOptionIndex;
 
     void Start()
     {
@@ -30,7 +33,6 @@ public class WordMatchingMonster : MonoBehaviour
         testPanel.SetActive(false);
         feedbackText.gameObject.SetActive(false);
         CreateTestBubble();
-        SetupOptions();
     }
 
     void Update()
@@ -57,16 +59,6 @@ public class WordMatchingMonster : MonoBehaviour
         testBubble.SetActive(false);
     }
 
-    void SetupOptions()
-    {
-        for (int i = 0; i < optionButtons.Length; i++)
-        {
-            int index = i;
-            optionButtons[i].onClick.AddListener(() => OnOptionSelected(index));
-            optionButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = options[i];
-        }
-    }
-
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player") && !isTestActive)
@@ -80,42 +72,122 @@ public class WordMatchingMonster : MonoBehaviour
         isTestActive = true;
         testBubble.SetActive(false);
         testPanel.SetActive(true);
-        questionText.text = question;
         feedbackText.gameObject.SetActive(false);
+
+        currentTestWords = WordMatchingWordManager.Instance.GetRandomWords(WordMatchingWordManager.Instance.wordsToTestCount);
+        currentWordIndex = 0;
 
         if (playerController != null)
         {
             playerController.enabled = false;
         }
+
+        ShowNextWord();
+    }
+
+    void ShowNextWord()
+    {
+        if (currentWordIndex >= currentTestWords.Count)
+        {
+            EndTest();
+            return;
+        }
+
+        // 重新激活所有选项按钮
+        foreach (Button button in optionButtons)
+        {
+            button.gameObject.SetActive(true);
+        }
+
+        TestWordData currentWord = currentTestWords[currentWordIndex];
+        questionText.text = $"What is the Chinese meaning of '{currentWord.word}'?";
+
+        SetupOptions(currentWord);
+    }
+
+    void SetupOptions(TestWordData correctWord)
+    {
+        List<TestWordData> allWords = WordMatchingWordManager.Instance.wordList.words;
+        List<TestWordData> tempWordList = new List<TestWordData>(allWords);
+        tempWordList.Remove(correctWord);
+
+        List<string> wrongOptions = new List<string>();
+        for (int i = 0; i < numberOfOptions - 1; i++)
+        {
+            if (tempWordList.Count == 0) break;
+
+            int randomIndex = Random.Range(0, tempWordList.Count);
+            wrongOptions.Add(tempWordList[randomIndex].chinese);
+            tempWordList.RemoveAt(randomIndex);
+        }
+
+        correctOptionIndex = Random.Range(0, numberOfOptions);
+
+        int wrongOptionIndex = 0;
+        for (int i = 0; i < optionButtons.Length; i++)
+        {
+            if (i == correctOptionIndex)
+            {
+                optionButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = correctWord.chinese;
+            }
+            else
+            {
+                if (wrongOptionIndex < wrongOptions.Count)
+                {
+                    optionButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = wrongOptions[wrongOptionIndex];
+                    wrongOptionIndex++;
+                }
+                else
+                {
+                    optionButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = "Unknown";
+                }
+            }
+
+            optionButtons[i].onClick.RemoveAllListeners();
+            int index = i;
+            optionButtons[i].onClick.AddListener(() => OnOptionSelected(index));
+        }
     }
 
     void OnOptionSelected(int optionIndex)
     {
+        TestWordData currentWord = currentTestWords[currentWordIndex];
+
         if (optionIndex == correctOptionIndex)
         {
-            feedbackText.text = "Right1";
+            feedbackText.text = "Correct!";
             feedbackText.color = Color.green;
-            gameObject.SetActive(false);
+            feedbackText.gameObject.SetActive(true);
+            Invoke("HideFeedbackText", 3f);
+            currentWordIndex++;
+            Invoke("ShowNextWord", 1f);
         }
         else
         {
-            feedbackText.text = "False,right answer is: " + options[correctOptionIndex];
+            feedbackText.text = $"Wrong! The correct answer is: {currentWord.chinese}";
             feedbackText.color = Color.red;
+            feedbackText.gameObject.SetActive(true);
+            Invoke("HideFeedbackText", 3f);
+            // 移除错误选项按钮
+            optionButtons[optionIndex].gameObject.SetActive(false);
         }
-        feedbackText.gameObject.SetActive(true);
+    }
 
-        Invoke("EndTest", 2f);
+    void HideFeedbackText()
+    {
+        feedbackText.gameObject.SetActive(false);
     }
 
     void EndTest()
     {
         isTestActive = false;
         testPanel.SetActive(false);
-        feedbackText.gameObject.SetActive(false); // ������ʾ��Ϣ
+        feedbackText.gameObject.SetActive(false);
+        gameObject.SetActive(false);
 
         if (playerController != null)
         {
-            playerController.enabled = true; // ����������ҿ��ƽű�
+            playerController.enabled = true;
         }
     }
 }
