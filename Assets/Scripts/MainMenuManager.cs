@@ -1,26 +1,74 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class MainMenuManager : MonoBehaviour
+public class MainMenuManagerManager : MonoBehaviour
 {
-    public void OnNewGameButtonClicked()
+    public Button loadButton;
+    public Button quitButton;
+    public Button settingButton;
+    public Button startNewGameButton;
+
+    void Start()
     {
-        // 加载背景故事场景
-        SceneManager.LoadScene("StoryScene");
+        // 监听提交按钮点击事件
+        loadButton.onClick.AddListener(LoadGame);
+        quitButton.onClick.AddListener(QuitGame);
+        settingButton.onClick.AddListener(Setting);
+        startNewGameButton.onClick.AddListener(StartNewGame);
     }
 
-    public void OnSettingsButtonClicked()
+    /// <summary>
+    /// 加载游戏进度
+    /// </summary>
+    public void LoadGame()
     {
-        // 加载设置界面场景
-        SceneManager.LoadScene("SettingsScene");
+        // 使用SaveLoadManager加载游戏数据
+        SaveData loadData = SaveLoadManager.LoadProgress();
+        if (loadData != null)
+        {
+            // 加载场景
+            SceneManager.LoadScene(loadData.sceneName);
+            // 恢复玩家和敌人的生命值
+            BattleManager.instance.playerStats.health = loadData.playerHealth;
+            BattleManager.instance.enemyStats.health = loadData.enemyHealth;
+            // 更新UI上的血量条
+            BattleManager.instance.UpdatePlayerHealthBar(loadData.playerHealth);
+            BattleManager.instance.UpdateEnemyHealthBar(loadData.enemyHealth);
+            // 重新生成问题
+            BattleManager.instance.GenerateNewQuestion();
+            Debug.Log("Game loaded!");
+        }
+        else
+        {
+            Debug.LogWarning("No save data found.");
+        }
     }
 
-    public void OnQuitButtonClicked()
+    /// <summary>
+    /// 退出游戏
+    /// </summary>
+    public void QuitGame()
     {
         Application.Quit();
+        Debug.Log("Game quit!");
+    }
 
-        Debug.Log("退出游戏!");
+    /// <summary>
+    /// 开始新游戏，进入引导对话
+    /// </summary>
+    public void StartNewGame()
+    {
+        SceneManager.LoadScene("StartTalk");
+    }
+    /// <summary>
+    /// 进入设置界面
+    /// </summary>
+    public void Setting()
+    {
+        SceneManager.LoadScene("SettingsScene");
     }
 }
+
+
+

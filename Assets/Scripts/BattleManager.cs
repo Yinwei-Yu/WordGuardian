@@ -7,6 +7,9 @@ public enum TurnState { PlayerTurn, EnemyTurn }
 
 public class BattleManager : MonoBehaviour
 {
+    // 单例模式实例
+    public static BattleManager instance;
+
     // 当前回合状态
     public TurnState currentState = TurnState.PlayerTurn;
     // 玩家角色的状态组件
@@ -26,6 +29,19 @@ public class BattleManager : MonoBehaviour
 
     // 正确的答案
     private string correctAnswer = "example"; // 这应该根据游戏逻辑动态设置
+
+    void Awake()
+    {
+        // 实现单例模式
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -47,21 +63,25 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     void CheckAnswerAndAttack()
     {
-        // 如果是玩家回合并且答案正确
-        if (currentState == TurnState.PlayerTurn && inputAnswer.text.ToLower() == correctAnswer.ToLower())
+        // 如果是玩家回合
+        if (currentState == TurnState.PlayerTurn)
         {
-            // 攻击敌人
-            Attack(enemyStats);
+            if (inputAnswer.text.ToLower() == correctAnswer.ToLower())
+            {
+                // 攻击敌人
+                Attack(enemyStats);
+                //// 切换到敌人回合
+                //currentState = TurnState.EnemyTurn;
+                //// 清空输入框
+                //inputAnswer.text = "";
+                //// 生成新的问题
+                //GenerateNewQuestion();
+            }
+            if(inputAnswer.text.ToLower() != correctAnswer.ToLower())
+                // 清空输入框
+                inputAnswer.text = "";
             // 切换到敌人回合
             currentState = TurnState.EnemyTurn;
-            // 清空输入框
-            inputAnswer.text = "";
-            // 生成新的问题
-            GenerateNewQuestion();
-        }
-        // 如果是敌人回合
-        else if (currentState == TurnState.EnemyTurn)
-        {
             // 攻击玩家
             Attack(playerStats);
             // 切换到玩家回合
@@ -90,7 +110,7 @@ public class BattleManager : MonoBehaviour
     /// 更新玩家血量条
     /// </summary>
     /// <param name="health">玩家当前生命值</param>
-    void UpdatePlayerHealthBar(int health)
+    public void UpdatePlayerHealthBar(int health)
     {
         // 设置玩家血量条的值
         playerHealthSlider.value = (float)health / playerStats.maxHealth;
@@ -100,7 +120,7 @@ public class BattleManager : MonoBehaviour
     /// 更新敌人血量条
     /// </summary>
     /// <param name="health">敌人当前生命值</param>
-    void UpdateEnemyHealthBar(int health)
+    public void UpdateEnemyHealthBar(int health)
     {
         // 设置敌人血量条的值
         enemyHealthSlider.value = (float)health / enemyStats.maxHealth;
@@ -118,7 +138,7 @@ public class BattleManager : MonoBehaviour
     /// <summary>
     /// 生成新的问题
     /// </summary>
-    void GenerateNewQuestion()
+    public void GenerateNewQuestion()
     {
         // 示例：生成一个新的问题并设置正确的答案
         questionsText.text = "What is the capital of France?";
