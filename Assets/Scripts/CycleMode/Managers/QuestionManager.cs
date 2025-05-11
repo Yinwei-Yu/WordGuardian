@@ -1,15 +1,14 @@
-// QuestionManager.cs
-// 在QuestionManager中添加
-
-
+using System.IO;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class QuestionManager : MonoBehaviour
 {
-    [Header("Settings")]
-    public string jsonFileName = "questions.json";
+    [Header("基础设置")]
     public int optionsCount = 4;
 
-    [Header("References")]
+    [Header("UI引用")]
     public Text questionText;
     public Text explanationText;
     public Transform optionsPanel;
@@ -21,18 +20,28 @@ public class QuestionManager : MonoBehaviour
 
     void Start()
     {
-        LoadQuestions();
+        // 从GameManager获取当前JSON路径
+        string jsonPath = GameManager.Instance.GetCurrentJsonPath();
+        LoadQuestions(jsonPath);
         GetNewQuestion();
     }
 
-    void LoadQuestions()
+    public void LoadQuestions(string jsonPath)
     {
-        string path = Path.Combine(Application.streamingAssetsPath, jsonFileName);
-        string jsonData = File.ReadAllText(path);
-        QuestionList loadedData = JsonUtility.FromJson<QuestionList>(jsonData);
+        string fullPath = Path.Combine(Application.streamingAssetsPath, jsonPath);
         
-        allQuestions = loadedData.questions;
-        availableQuestions = new List<QuestionData>(allQuestions);
+        if (File.Exists(fullPath))
+        {
+            string jsonData = File.ReadAllText(fullPath);
+            QuestionList loadedData = JsonUtility.FromJson<QuestionList>(jsonData);
+            allQuestions = loadedData.questions;
+            availableQuestions = new List<QuestionData>(allQuestions);
+            Debug.Log($"成功从 {jsonPath} 加载 {allQuestions.Count} 个问题");
+        }
+        else
+        {
+            Debug.LogError($"文件未找到: {fullPath}");
+        }
     }
 
     public void GetNewQuestion()

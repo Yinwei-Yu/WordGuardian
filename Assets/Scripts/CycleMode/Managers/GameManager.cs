@@ -1,10 +1,15 @@
-// GameManager.cs
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    [Header("Scene Management")]
+    [Header("场景设置")]
     public string mainMenuScene = "MainMenu";
+    public string[] jsonFilePaths; // 在Inspector中设置所有JSON路径
+
+    private string currentJsonPath;
 
     void Awake()
     {
@@ -19,14 +24,24 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void EndGame()
+    public void SetCurrentJsonPath(string path)
     {
-        // 显示结束界面或返回主菜单
-        ReturnToMainMenu();
+        currentJsonPath = path;
+    }
+
+    public void StartGameWithJson(string path)
+    {
+        SetCurrentJsonPath(path);
+        SceneManager.LoadScene("GameScene"); // 切换到游戏场景
     }
 
     public void ReturnToMainMenu()
     {
         SceneManager.LoadScene(mainMenuScene);
+    }
+
+    public string GetCurrentJsonPath()
+    {
+        return currentJsonPath;
     }
 }

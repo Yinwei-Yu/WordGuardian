@@ -1,4 +1,3 @@
-// QuestionData.cs
 [System.Serializable]
 public class QuestionData
 {
