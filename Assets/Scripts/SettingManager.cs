@@ -1,13 +1,57 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SettingManager : MonoBehaviour
 {
-    public void OnReturnButtonClicked()
+    public Button saveButton;
+    public Button mainMenuButton;
+    public Button continueButton;
+
+    void Start()
     {
-        // è¿”å›ä¸»ç•Œé¢
+        // ¼àÌıÌá½»°´Å¥µã»÷ÊÂ¼ş
+        saveButton.onClick.AddListener(SaveGame);
+        mainMenuButton.onClick.AddListener(GoToMainMenu);
+        continueButton.onClick.AddListener(ContinueGame);
+    }
+    /// <summary>
+    /// ±£´æÓÎÏ·½ø¶È
+    /// </summary>
+    public void SaveGame()
+    {
+
+        // Ê¹ÓÃSaveLoadManager±£´æÍæ¼ÒºÍµĞÈËµÄÉúÃüÖµÒÔ¼°Ñ§Ï°µÄµ¥´ÊºÍ³¡¾°Ãû³Æ
+        // ÕâÀï¼ÙÉèÑ§Ï°µÄµ¥´ÊÊÇ"example"£¬¸ù¾İÊµ¼ÊÇé¿öĞŞ¸Ä
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        // ¼ì²éÊÇ·ñÊÇµÚÒ»¸ö³¡¾°
+        if (currentSceneIndex <= 0)
+        {
+            Debug.LogWarning("No previous scene exists!");
+        }
+        // Í¨¹ıË÷Òı»ñÈ¡ÉÏÒ»¸ö³¡¾°µÄĞÅÏ¢
+        Scene previousScene = SceneManager.GetSceneByBuildIndex(currentSceneIndex - 1);
+
+        SaveLoadManager.SaveProgress(BattleManager.instance.playerStats.health, BattleManager.instance.enemyStats.health, previousScene.name, "example");
+        Debug.Log("Game saved!");
+    }
+
+    /// <summary>
+    /// ·µ»ØÖ÷²Ëµ¥
+    /// </summary>
+    public void GoToMainMenu()
+    {
         SceneManager.LoadScene("MainMenuScene");
     }
+
+    /// <summary>
+    /// ¼ÌĞøÓÎÏ·
+    /// </summary>
+    public void ContinueGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+    }
 }
+
+
+
