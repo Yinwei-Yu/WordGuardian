@@ -17,6 +17,7 @@ public class WordMatchingMonster : MonoBehaviour
 
     [Header("Settings")]
     public int numberOfOptions = 4;
+    public int bubbleSize;
 
     private Transform player;
     private bool isTestActive = false;
@@ -52,7 +53,7 @@ public class WordMatchingMonster : MonoBehaviour
 
         var text = testBubble.AddComponent<TextMeshPro>();
         text.text = "Matching Test";
-        text.fontSize = 2;
+        text.fontSize = bubbleSize;
         text.alignment = TextAlignmentOptions.Center;
         text.sortingOrder = 10;
 
@@ -184,7 +185,8 @@ public class WordMatchingMonster : MonoBehaviour
         testPanel.SetActive(false);
         feedbackText.gameObject.SetActive(false);
         gameObject.SetActive(false);
-
+        Destroy(gameObject);
+        EnemyManager.Instance.OnEnemyDefeated();
         if (playerController != null)
         {
             playerController.enabled = true;

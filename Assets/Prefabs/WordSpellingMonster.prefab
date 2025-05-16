@@ -183,7 +183,8 @@ MonoBehaviour:
   answerInput: {fileID: 0}
   submitButton: {fileID: 0}
   feedbackText: {fileID: 0}
-  stkaitiFont: {fileID: 0}
+  stkaitiFont: {fileID: 11400000, guid: e203b44fd79257547a326afdfa1d70ce, type: 2}
+  bubbleSize: 5
 --- !u!114 &-8999197081221940898
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,14 +1,11 @@
 using System.IO;
 using UnityEngine;
 
-// ¶¨Òå±£´æµÄÊı¾İ½á¹¹
+// å®šä¹‰ä¿å­˜çš„æ•°æ®ç»“æ„
 [System.Serializable]
 public class SaveData
 {
-    public int playerHealth;
-    public int enemyHealth;
     public string sceneName;
-    public string learnedWord;
 }
 
 public static class SaveLoadManager
@@ -16,50 +13,43 @@ public static class SaveLoadManager
     private const string SAVE_FILE_NAME = "game_save.json";
 
     /// <summary>
-    /// ±£´æÓÎÏ·½ø¶Èµ½ÎÄ¼ş
+    /// ä¿å­˜æ¸¸æˆè¿›åº¦åˆ°æ–‡ä»¶
     /// </summary>
-    /// <param name="playerHealth">Íæ¼Òµ±Ç°ÉúÃüÖµ</param>
-    /// <param name="enemyHealth">µĞÈËµ±Ç°ÉúÃüÖµ</param>
-    /// <param name="sceneName">µ±Ç°³¡¾°Ãû³Æ</param>
-    /// <param name="learnedWord">Ñ§Ï°µÄµ¥´Ê</param>
-    public static void SaveProgress(int playerHealth, int enemyHealth, string sceneName, string learnedWord)
+    /// <param name="sceneName">å½“å‰åœºæ™¯åç§°</param>
+    public static void SaveProgress(string sceneName)
     {
-        // ´´½¨±£´æÊı¾İ¶ÔÏó
+        // åˆ›å»ºä¿å­˜æ•°æ®å¯¹è±¡
         SaveData data = new SaveData
         {
-            playerHealth = playerHealth,
-            enemyHealth = enemyHealth,
             sceneName = sceneName,
-            learnedWord = learnedWord
         };
-
-        // ½«Êı¾İĞòÁĞ»¯ÎªJSON×Ö·û´®
+        // å°†æ•°æ®åºåˆ—åŒ–ä¸ºJSONå­—ç¬¦ä¸²
         string json = JsonUtility.ToJson(data);
-        // »ñÈ¡³Ö¾Ã»¯Êı¾İÂ·¾¶
+        // è·å–æŒä¹…åŒ–æ•°æ®è·¯å¾„
         string filePath = Path.Combine(Application.persistentDataPath, SAVE_FILE_NAME);
-        // ½«JSON×Ö·û´®Ğ´ÈëÎÄ¼ş
+        // å°†JSONå­—ç¬¦ä¸²å†™å…¥æ–‡ä»¶
         File.WriteAllText(filePath, json);
     }
 
     /// <summary>
-    /// ´ÓÎÄ¼ş¼ÓÔØÓÎÏ·½ø¶È
+    /// ä»æ–‡ä»¶åŠ è½½æ¸¸æˆè¿›åº¦
     /// </summary>
-    /// <returns>¼ÓÔØµÄÓÎÏ·Êı¾İ</returns>
+    /// <returns>åŠ è½½çš„æ¸¸æˆæ•°æ®</returns>
     public static SaveData LoadProgress()
     {
-        // »ñÈ¡³Ö¾Ã»¯Êı¾İÂ·¾¶
+        // è·å–æŒä¹…åŒ–æ•°æ®è·¯å¾„
         string filePath = Path.Combine(Application.persistentDataPath, SAVE_FILE_NAME);
-        // ¼ì²éÎÄ¼şÊÇ·ñ´æÔÚ
+        // æ£€æŸ¥æ–‡ä»¶æ˜¯å¦å­˜åœ¨
         if (File.Exists(filePath))
         {
-            // ¶ÁÈ¡ÎÄ¼şÄÚÈİ
+            // è¯»å–æ–‡ä»¶å†…å®¹
             string json = File.ReadAllText(filePath);
-            // ·´ĞòÁĞ»¯JSON×Ö·û´®ÎªSaveData¶ÔÏó
+            // ååºåˆ—åŒ–JSONå­—ç¬¦ä¸²ä¸ºSaveDataå¯¹è±¡
             return JsonUtility.FromJson<SaveData>(json);
         }
         else
         {
-            // ÎÄ¼ş²»´æÔÚÊ±·µ»Ønull
+            // æ–‡ä»¶ä¸å­˜åœ¨æ—¶è¿”å›null
             return null;
         }
     }

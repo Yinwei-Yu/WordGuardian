@@ -4,9 +4,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class TeBookToBattle : MonoBehaviour
 {
+    public string nextScene;
     public void OnClick()
     {
-        SceneManager.LoadScene("TeachBattle");
+        SceneManager.LoadScene(nextScene);
     }
 
 }

@@ -32,6 +32,7 @@ public class WordBookManager : MonoBehaviour
     public TMP_Text storyCnText;
     public TMP_Text sentencesText;
 
+    public string filePath;
     private WordData[] allWords;
 
     void Start()
@@ -43,7 +44,7 @@ public class WordBookManager : MonoBehaviour
 
     void LoadData()
     {
-        TextAsset jsonFile = Resources.Load<TextAsset>("TeachingWords");
+        TextAsset jsonFile = Resources.Load<TextAsset>(filePath);
         WordBook data = JsonUtility.FromJson<WordBook>(jsonFile.text);
         allWords = data.words;
     }

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-// ÓÃÓÚµ¥´ÊÆ¥ÅäµÄÊı¾İÀà
+// ç”¨äºå•è¯åŒ¹é…çš„æ•°æ®ç±»
 [System.Serializable]
 public class TestWordData
 {
@@ -12,7 +12,7 @@ public class TestWordData
     public List<string> sentences;
 }
 
-// µ¥´ÊÁĞ±íÀà
+// å•è¯åˆ—è¡¨ç±»
 [System.Serializable]
 public class WordList
 {

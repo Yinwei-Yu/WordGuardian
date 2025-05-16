@@ -10,48 +10,44 @@ public class SettingManager : MonoBehaviour
 
     void Start()
     {
-        // ¼àÌıÌá½»°´Å¥µã»÷ÊÂ¼ş
+        // ç›‘å¬æŒ‰é’®ç‚¹å‡»äº‹ä»¶
         saveButton.onClick.AddListener(SaveGame);
         mainMenuButton.onClick.AddListener(GoToMainMenu);
         continueButton.onClick.AddListener(ContinueGame);
     }
+
     /// <summary>
-    /// ±£´æÓÎÏ·½ø¶È
+    /// ä¿å­˜æ¸¸æˆè¿›åº¦
     /// </summary>
     public void SaveGame()
     {
+        // è·å–å½“å‰åœºæ™¯åç§°
+        string currentSceneName = SceneManager.GetActiveScene().name;
 
-        // Ê¹ÓÃSaveLoadManager±£´æÍæ¼ÒºÍµĞÈËµÄÉúÃüÖµÒÔ¼°Ñ§Ï°µÄµ¥´ÊºÍ³¡¾°Ãû³Æ
-        // ÕâÀï¼ÙÉèÑ§Ï°µÄµ¥´ÊÊÇ"example"£¬¸ù¾İÊµ¼ÊÇé¿öĞŞ¸Ä
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        // ¼ì²éÊÇ·ñÊÇµÚÒ»¸ö³¡¾°
-        if (currentSceneIndex <= 0)
-        {
-            Debug.LogWarning("No previous scene exists!");
-        }
-        // Í¨¹ıË÷Òı»ñÈ¡ÉÏÒ»¸ö³¡¾°µÄĞÅÏ¢
-        Scene previousScene = SceneManager.GetSceneByBuildIndex(currentSceneIndex - 1);
+        // è°ƒç”¨ SaveLoadManager ä¿å­˜è¿›åº¦
+        SaveLoadManager.SaveProgress(currentSceneName);
 
-        SaveLoadManager.SaveProgress(BattleManager.instance.playerStats.health, BattleManager.instance.enemyStats.health, previousScene.name, "example");
-        Debug.Log("Game saved!");
+        //Debug.Log($"Game saved! Scene: {currentSceneName}, Learned Words: {learnedWords}");
     }
 
     /// <summary>
-    /// ·µ»ØÖ÷²Ëµ¥
+    /// è¿”å›ä¸»èœå•
     /// </summary>
     public void GoToMainMenu()
     {
+        // åŠ è½½ä¸»èœå•åœºæ™¯
         SceneManager.LoadScene("MainMenuScene");
+
+        // æ¢å¤æ¸¸æˆ
+        Time.timeScale = 1f;
     }
 
     /// <summary>
-    /// ¼ÌĞøÓÎÏ·
+    /// ç»§ç»­æ¸¸æˆ
     /// </summary>
     public void ContinueGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        // è°ƒç”¨ GameManager è¿”å›åˆ°ä¸Šä¸€ä¸ªåœºæ™¯
+        GameManager.Instance.ReturnToPreviousScene();
     }
 }
-
-
-

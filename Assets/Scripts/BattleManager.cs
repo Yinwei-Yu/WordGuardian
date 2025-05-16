@@ -2,37 +2,37 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-// ¶¨Òå»ØºÏ×´Ì¬Ã¶¾Ù
+// å®šä¹‰å›åˆçŠ¶æ€æšä¸¾
 public enum TurnState { PlayerTurn, EnemyTurn }
 
 public class BattleManager : MonoBehaviour
 {
-    // µ¥ÀıÄ£Ê½ÊµÀı
+    // å•ä¾‹æ¨¡å¼å®ä¾‹
     public static BattleManager instance;
 
-    // µ±Ç°»ØºÏ×´Ì¬
+    // å½“å‰å›åˆçŠ¶æ€
     public TurnState currentState = TurnState.PlayerTurn;
-    // Íæ¼Ò½ÇÉ«µÄ×´Ì¬×é¼ş
+    // ç©å®¶è§’è‰²çš„çŠ¶æ€ç»„ä»¶
     public CharacterStats playerStats;
-    // µĞÈË½ÇÉ«µÄ×´Ì¬×é¼ş
+    // æ•Œäººè§’è‰²çš„çŠ¶æ€ç»„ä»¶
     public CharacterStats enemyStats;
-    // Íæ¼ÒÑªÁ¿Ìõ»¬¿é
+    // ç©å®¶è¡€é‡æ¡æ»‘å—
     public Slider playerHealthSlider;
-    // µĞÈËÑªÁ¿Ìõ»¬¿é
+    // æ•Œäººè¡€é‡æ¡æ»‘å—
     public Slider enemyHealthSlider;
-    // ÏÔÊ¾ÎÊÌâµÄÎÄ±¾
+    // æ˜¾ç¤ºé—®é¢˜çš„æ–‡æœ¬
     public TMP_Text questionsText;
-    // Ìá½»°´Å¥
+    // æäº¤æŒ‰é’®
     public Button submitButton;
-    // ÊäÈë´ğ°¸µÄÊäÈë¿ò
+    // è¾“å…¥ç­”æ¡ˆçš„è¾“å…¥æ¡†
     public TMP_InputField inputAnswer;
 
-    // ÕıÈ·µÄ´ğ°¸
-    private string correctAnswer = "example"; // ÕâÓ¦¸Ã¸ù¾İÓÎÏ·Âß¼­¶¯Ì¬ÉèÖÃ
+    // æ­£ç¡®çš„ç­”æ¡ˆ
+    private string correctAnswer = "example"; // è¿™åº”è¯¥æ ¹æ®æ¸¸æˆé€»è¾‘åŠ¨æ€è®¾ç½®
 
     void Awake()
     {
-        // ÊµÏÖµ¥ÀıÄ£Ê½
+        // å®ç°å•ä¾‹æ¨¡å¼
         if (instance == null)
         {
             instance = this;
@@ -45,61 +45,61 @@ public class BattleManager : MonoBehaviour
 
     void Start()
     {
-        // ¶©ÔÄÍæ¼Ò½ÇÉ«µÄÉúÃüÖµ±ä»¯ÊÂ¼ş
+        // è®¢é˜…ç©å®¶è§’è‰²çš„ç”Ÿå‘½å€¼å˜åŒ–äº‹ä»¶
         playerStats.OnHealthChanged.AddListener(UpdatePlayerHealthBar);
-        // ¶©ÔÄµĞÈË½ÇÉ«µÄÉúÃüÖµ±ä»¯ÊÂ¼ş
+        // è®¢é˜…æ•Œäººè§’è‰²çš„ç”Ÿå‘½å€¼å˜åŒ–äº‹ä»¶
         enemyStats.OnHealthChanged.AddListener(UpdateEnemyHealthBar);
 
-        // ¸üĞÂ³õÊ¼ÉúÃüÖµÏÔÊ¾
+        // æ›´æ–°åˆå§‹ç”Ÿå‘½å€¼æ˜¾ç¤º
         UpdatePlayerHealthBar(playerStats.health);
         UpdateEnemyHealthBar(enemyStats.health);
 
-        // ¼àÌıÌá½»°´Å¥µã»÷ÊÂ¼ş
+        // ç›‘å¬æäº¤æŒ‰é’®ç‚¹å‡»äº‹ä»¶
         submitButton.onClick.AddListener(CheckAnswerAndAttack);
     }
 
     /// <summary>
-    /// ¼ì²é´ğ°¸²¢Ö´ĞĞ¹¥»÷
+    /// æ£€æŸ¥ç­”æ¡ˆå¹¶æ‰§è¡Œæ”»å‡»
     /// </summary>
     void CheckAnswerAndAttack()
     {
-        // Èç¹ûÊÇÍæ¼Ò»ØºÏ
+        // å¦‚æœæ˜¯ç©å®¶å›åˆ
         if (currentState == TurnState.PlayerTurn)
         {
             if (inputAnswer.text.ToLower() == correctAnswer.ToLower())
             {
-                // ¹¥»÷µĞÈË
+                // æ”»å‡»æ•Œäºº
                 Attack(enemyStats);
-                //// ÇĞ»»µ½µĞÈË»ØºÏ
+                //// åˆ‡æ¢åˆ°æ•Œäººå›åˆ
                 //currentState = TurnState.EnemyTurn;
-                //// Çå¿ÕÊäÈë¿ò
+                //// æ¸…ç©ºè¾“å…¥æ¡†
                 //inputAnswer.text = "";
-                //// Éú³ÉĞÂµÄÎÊÌâ
+                //// ç”Ÿæˆæ–°çš„é—®é¢˜
                 //GenerateNewQuestion();
             }
             if(inputAnswer.text.ToLower() != correctAnswer.ToLower())
-                // Çå¿ÕÊäÈë¿ò
+                // æ¸…ç©ºè¾“å…¥æ¡†
                 inputAnswer.text = "";
-            // ÇĞ»»µ½µĞÈË»ØºÏ
+            // åˆ‡æ¢åˆ°æ•Œäººå›åˆ
             currentState = TurnState.EnemyTurn;
-            // ¹¥»÷Íæ¼Ò
+            // æ”»å‡»ç©å®¶
             Attack(playerStats);
-            // ÇĞ»»µ½Íæ¼Ò»ØºÏ
+            // åˆ‡æ¢åˆ°ç©å®¶å›åˆ
             currentState = TurnState.PlayerTurn;
-            // Éú³ÉĞÂµÄÎÊÌâ
+            // ç”Ÿæˆæ–°çš„é—®é¢˜
             GenerateNewQuestion();
         }
     }
 
     /// <summary>
-    /// Ö´ĞĞ¹¥»÷²Ù×÷
+    /// æ‰§è¡Œæ”»å‡»æ“ä½œ
     /// </summary>
-    /// <param name="target">±»¹¥»÷µÄ½ÇÉ«</param>
+    /// <param name="target">è¢«æ”»å‡»çš„è§’è‰²</param>
     void Attack(CharacterStats target)
     {
-        // ¸ù¾İµ±Ç°»ØºÏ¼õÉÙÄ¿±ê½ÇÉ«µÄÉúÃüÖµ
+        // æ ¹æ®å½“å‰å›åˆå‡å°‘ç›®æ ‡è§’è‰²çš„ç”Ÿå‘½å€¼
         target.DecreaseHealth(currentState == TurnState.PlayerTurn ? playerStats.attackPower : enemyStats.attackPower);
-        // ¼ì²éÄ¿±ê½ÇÉ«ÊÇ·ñËÀÍö
+        // æ£€æŸ¥ç›®æ ‡è§’è‰²æ˜¯å¦æ­»äº¡
         if (target.health <= 0)
         {
             EndBattle();
@@ -107,40 +107,40 @@ public class BattleManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ¸üĞÂÍæ¼ÒÑªÁ¿Ìõ
+    /// æ›´æ–°ç©å®¶è¡€é‡æ¡
     /// </summary>
-    /// <param name="health">Íæ¼Òµ±Ç°ÉúÃüÖµ</param>
+    /// <param name="health">ç©å®¶å½“å‰ç”Ÿå‘½å€¼</param>
     public void UpdatePlayerHealthBar(int health)
     {
-        // ÉèÖÃÍæ¼ÒÑªÁ¿ÌõµÄÖµ
+        // è®¾ç½®ç©å®¶è¡€é‡æ¡çš„å€¼
         playerHealthSlider.value = (float)health / playerStats.maxHealth;
     }
 
     /// <summary>
-    /// ¸üĞÂµĞÈËÑªÁ¿Ìõ
+    /// æ›´æ–°æ•Œäººè¡€é‡æ¡
     /// </summary>
-    /// <param name="health">µĞÈËµ±Ç°ÉúÃüÖµ</param>
+    /// <param name="health">æ•Œäººå½“å‰ç”Ÿå‘½å€¼</param>
     public void UpdateEnemyHealthBar(int health)
     {
-        // ÉèÖÃµĞÈËÑªÁ¿ÌõµÄÖµ
+        // è®¾ç½®æ•Œäººè¡€é‡æ¡çš„å€¼
         enemyHealthSlider.value = (float)health / enemyStats.maxHealth;
     }
 
     /// <summary>
-    /// ½áÊøÕ½¶·
+    /// ç»“æŸæˆ˜æ–—
     /// </summary>
     void EndBattle()
     {
         Debug.Log("Battle ended!");
-        // Ìí¼ÓÆäËûÕ½¶·½áÊøÂß¼­
+        // æ·»åŠ å…¶ä»–æˆ˜æ–—ç»“æŸé€»è¾‘
     }
 
     /// <summary>
-    /// Éú³ÉĞÂµÄÎÊÌâ
+    /// ç”Ÿæˆæ–°çš„é—®é¢˜
     /// </summary>
     public void GenerateNewQuestion()
     {
-        // Ê¾Àı£ºÉú³ÉÒ»¸öĞÂµÄÎÊÌâ²¢ÉèÖÃÕıÈ·µÄ´ğ°¸
+        // ç¤ºä¾‹ï¼šç”Ÿæˆä¸€ä¸ªæ–°çš„é—®é¢˜å¹¶è®¾ç½®æ­£ç¡®çš„ç­”æ¡ˆ
         questionsText.text = "What is the capital of France?";
         correctAnswer = "paris";
     }

@@ -3,36 +3,36 @@ using UnityEngine.Events;
 
 public class CharacterStats : MonoBehaviour
 {
-    // µ±Ç°½ÇÉ«µÄÉúÃüÖµ
+    // å½“å‰è§’è‰²çš„ç”Ÿå‘½å€¼
     public int health;
-    // ½ÇÉ«µÄ×î´óÉúÃüÖµ
+    // è§’è‰²çš„æœ€å¤§ç”Ÿå‘½å€¼
     public int maxHealth = 100;
-    // ½ÇÉ«µÄ¹¥»÷Á¦
+    // è§’è‰²çš„æ”»å‡»åŠ›
     public int attackPower = 10;
 
-    // µ±ÉúÃüÖµ·¢Éú±ä»¯Ê±´¥·¢µÄÊÂ¼ş
+    // å½“ç”Ÿå‘½å€¼å‘ç”Ÿå˜åŒ–æ—¶è§¦å‘çš„äº‹ä»¶
     public UnityEvent<int> OnHealthChanged;
 
     void Start()
     {
-        // ³õÊ¼»¯ÉúÃüÖµÎª×î´óÉúÃüÖµ
+        // åˆå§‹åŒ–ç”Ÿå‘½å€¼ä¸ºæœ€å¤§ç”Ÿå‘½å€¼
         health = maxHealth;
-        // Èç¹ûOnHealthChangedÊÂ¼ş²»Îª¿Õ£¬Ôò´¥·¢¸ÃÊÂ¼ş
+        // å¦‚æœOnHealthChangedäº‹ä»¶ä¸ä¸ºç©ºï¼Œåˆ™è§¦å‘è¯¥äº‹ä»¶
         if (OnHealthChanged != null)
             OnHealthChanged.Invoke(health);
     }
 
     /// <summary>
-    /// ¼õÉÙ½ÇÉ«µÄÉúÃüÖµ
+    /// å‡å°‘è§’è‰²çš„ç”Ÿå‘½å€¼
     /// </summary>
-    /// <param name="damage">ÊÜµ½µÄÉËº¦Öµ</param>
+    /// <param name="damage">å—åˆ°çš„ä¼¤å®³å€¼</param>
     public void DecreaseHealth(int damage)
     {
-        // ¼õÉÙÉúÃüÖµ
+        // å‡å°‘ç”Ÿå‘½å€¼
         health -= damage;
-        // È·±£ÉúÃüÖµ²»µÍÓÚ0
+        // ç¡®ä¿ç”Ÿå‘½å€¼ä¸ä½äº0
         if (health < 0) health = 0;
-        // Èç¹ûOnHealthChangedÊÂ¼ş²»Îª¿Õ£¬Ôò´¥·¢¸ÃÊÂ¼ş
+        // å¦‚æœOnHealthChangedäº‹ä»¶ä¸ä¸ºç©ºï¼Œåˆ™è§¦å‘è¯¥äº‹ä»¶
         if (OnHealthChanged != null)
             OnHealthChanged.Invoke(health);
     }

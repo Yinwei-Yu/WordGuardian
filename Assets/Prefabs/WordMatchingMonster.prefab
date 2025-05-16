@@ -172,6 +172,7 @@ MonoBehaviour:
   - {fileID: 0}
   feedbackText: {fileID: 0}
   numberOfOptions: 4
+  bubbleSize: 5
 --- !u!114 &-18166742125707236
 MonoBehaviour:
   m_ObjectHideFlags: 0

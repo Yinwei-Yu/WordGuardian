@@ -29,15 +29,6 @@ public class MainMenuManagerManager : MonoBehaviour
         {
             // 加载场景
             SceneManager.LoadScene(loadData.sceneName);
-            // 恢复玩家和敌人的生命值
-            BattleManager.instance.playerStats.health = loadData.playerHealth;
-            BattleManager.instance.enemyStats.health = loadData.enemyHealth;
-            // 更新UI上的血量条
-            BattleManager.instance.UpdatePlayerHealthBar(loadData.playerHealth);
-            BattleManager.instance.UpdateEnemyHealthBar(loadData.enemyHealth);
-            // 重新生成问题
-            BattleManager.instance.GenerateNewQuestion();
-            Debug.Log("Game loaded!");
         }
         else
         {

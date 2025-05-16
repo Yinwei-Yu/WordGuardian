@@ -607,7 +607,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1720024620}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.99999994
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1495,6 +1495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 910cdb1764e4f40439928a79fcd73874, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextScene: TeachBattle
 --- !u!1 &1529976622
 GameObject:
   m_ObjectHideFlags: 0
@@ -1711,6 +1712,7 @@ MonoBehaviour:
   storyEnText: {fileID: 1888478380}
   storyCnText: {fileID: 1718484957}
   sentencesText: {fileID: 236486384}
+  filePath: TeachingWords
 --- !u!114 &1671182430
 MonoBehaviour:
   m_ObjectHideFlags: 0

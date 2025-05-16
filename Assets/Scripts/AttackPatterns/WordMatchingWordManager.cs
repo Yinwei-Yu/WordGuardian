@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-// WordMatchingMonsterµÄWordManager
+// WordMatchingMonsterÂµÃ„WordManager
 public class WordMatchingWordManager : MonoBehaviour
 {
     public static WordMatchingWordManager Instance { get; private set; }
@@ -14,7 +14,7 @@ public class WordMatchingWordManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(this.gameObject);
+            //DontDestroyOnLoad(this.gameObject);
             LoadWordData();
         }
         else

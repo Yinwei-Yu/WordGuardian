@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
 
-// WordSpellingMonster½Å±¾
+// WordSpellingMonster
 public class WordSpellingMonster : MonoBehaviour
 {
     [Header("Radius")]
@@ -16,6 +16,7 @@ public class WordSpellingMonster : MonoBehaviour
     public Button submitButton;
     public TextMeshProUGUI feedbackText;
     public TMP_FontAsset stkaitiFont;
+    public int bubbleSize = 0;
 
     private Transform player;
     private bool isTestActive = false;
@@ -56,7 +57,7 @@ public class WordSpellingMonster : MonoBehaviour
 
         var text = testBubble.AddComponent<TextMeshPro>();
         text.text = "Word Spelling Test";
-        text.fontSize = 2;
+        text.fontSize = bubbleSize;
         text.alignment = TextAlignmentOptions.Center;
         text.sortingOrder = 10;
 
@@ -148,7 +149,8 @@ public class WordSpellingMonster : MonoBehaviour
         testPanel.SetActive(false);
         feedbackText.gameObject.SetActive(false);
         gameObject.SetActive(false);
-
+        EnemyManager.Instance.OnEnemyDefeated();
+        Destroy(gameObject);
         if (playerController != null)
         {
             playerController.enabled = true;
