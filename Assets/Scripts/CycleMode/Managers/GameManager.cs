@@ -44,4 +44,12 @@ public class GameManager : MonoBehaviour
     {
         return currentJsonPath;
     }
+
+    public void EndGame()
+    {
+        // 1. 显示游戏结束UI
+        Debug.Log("游戏结束");
+
+
+    }
 }

@@ -31,12 +31,12 @@ public class QuizManager : MonoBehaviour
     );
 
     [Header("Questions")]
-    [SerializeField] private List<QuestionData> questions = new List<QuestionData>();
+    [SerializeField] private List<QuestionDataForDetection> questions = new List<QuestionDataForDetection>();
 
     private int currentQuestionIndex = 0;
 
     [System.Serializable]
-    public class QuestionData
+    public class QuestionDataForDetection
     {
         public string questionText;
         public string optionA;
@@ -100,7 +100,7 @@ public class QuizManager : MonoBehaviour
             return;
         }
 
-        QuestionData currentQuestion = questions[index];
+        QuestionDataForDetection currentQuestion = questions[index];
         questionText.text = currentQuestion.questionText;
 
         optionAButton.gameObject.SetActive(true);
@@ -125,7 +125,7 @@ public class QuizManager : MonoBehaviour
 
     private void OnOptionSelected(int selectedOption)
     {
-        QuestionData currentQuestion = questions[currentQuestionIndex];
+        QuestionDataForDetection currentQuestion = questions[currentQuestionIndex];
 
         if (selectedOption == currentQuestion.correctOption)
         {
@@ -145,7 +145,7 @@ public class QuizManager : MonoBehaviour
         }
     }
 
-    private void ShowErrorDialog(QuestionData question, int selectedOption)
+    private void ShowErrorDialog(QuestionDataForDetection question, int selectedOption)
     {
         string message = question.GetErrorMessage(selectedOption);
         errorText.text = message;

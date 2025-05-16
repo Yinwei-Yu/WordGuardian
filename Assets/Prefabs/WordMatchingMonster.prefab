@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7151738345465371412}
   - component: {fileID: 4481894064382850911}
   - component: {fileID: -18166742125707236}
+  - component: {fileID: 453547879044315615}
   m_Layer: 0
   m_Name: WordMatchingMonster
   m_TagString: Untagged
@@ -170,12 +171,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   feedbackText: {fileID: 0}
-  question: Apple
-  options:
-  - "\u82F9\u679C"
-  - "\u9999\u8549"
-  - "\u68A8\u5B50"
-  correctOptionIndex: 0
+  numberOfOptions: 4
 --- !u!114 &-18166742125707236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,3 +186,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chaseRange: 3
   moveSpeed: 3
+--- !u!114 &453547879044315615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5218007577485263845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c3c83e182e9b824891fbed8ff40dad1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wordsJsonFile: {fileID: 0}
+  wordList:
+    words: []
+  wordsToTestCount: 2

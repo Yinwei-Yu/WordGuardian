@@ -2,7 +2,8 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-
+using System.Collections.Generic;
+using System;
 public class QuestionManager : MonoBehaviour
 {
     [Header("基础设置")]
@@ -29,7 +30,7 @@ public class QuestionManager : MonoBehaviour
     public void LoadQuestions(string jsonPath)
     {
         string fullPath = Path.Combine(Application.streamingAssetsPath, jsonPath);
-        
+
         if (File.Exists(fullPath))
         {
             string jsonData = File.ReadAllText(fullPath);
@@ -51,7 +52,7 @@ public class QuestionManager : MonoBehaviour
             availableQuestions = new List<QuestionData>(allQuestions);
         }
 
-        int randomIndex = Random.Range(0, availableQuestions.Count);
+        int randomIndex = UnityEngine.Random.Range(0, availableQuestions.Count);
         currentQuestion = availableQuestions[randomIndex];
         availableQuestions.RemoveAt(randomIndex);
 
@@ -93,7 +94,7 @@ public class QuestionManager : MonoBehaviour
         // 随机排序选项
         foreach (Transform child in optionsPanel)
         {
-            child.SetSiblingIndex(Random.Range(0, optionsCount));
+            child.SetSiblingIndex(UnityEngine.Random.Range(0, optionsCount));
         }
     }
 
@@ -102,7 +103,7 @@ public class QuestionManager : MonoBehaviour
         GameObject buttonObj = Instantiate(optionButtonPrefab, optionsPanel);
         Button button = buttonObj.GetComponent<Button>();
         Text buttonText = buttonObj.GetComponentInChildren<Text>();
-        
+
         buttonText.text = answer;
         button.onClick.AddListener(() => OnOptionSelected(isCorrect));
     }

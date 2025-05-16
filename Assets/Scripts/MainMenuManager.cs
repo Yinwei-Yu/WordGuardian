@@ -59,7 +59,7 @@ public class MainMenuManagerManager : MonoBehaviour
     /// </summary>
     public void StartNewGame()
     {
-        SceneManager.LoadScene("StartTalk");
+        SceneManager.LoadScene("StoryScene");
     }
     /// <summary>
     /// 进入设置界面

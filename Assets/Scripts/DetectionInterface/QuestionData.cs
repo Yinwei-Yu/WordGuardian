@@ -1,7 +1,7 @@
 using System;
 
 [Serializable]
-public class QuestionData
+public class QuestionDataForDetection
 {
     public string questionText;
     public string optionA;
